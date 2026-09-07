@@ -4,7 +4,10 @@
   "description": "Oh! Markdown~ react render",
   "main": "es/index.js",
   "type": "module",
-  "typings": "es/index.d.ts",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "types": "es/index.d.ts",
   "files": [
     "es",
     "src",
@@ -13,7 +16,7 @@
   ],
   "scripts": {
     "clean": "rm -rf es",
-    "build": "tsc -p tsconfig.json",
+    "build": "pkgroll --srcdist src:es --clean-dist --sourcemap",
     "test:type": "tsc --noEmit"
   },
   "repository": {
@@ -27,12 +30,23 @@
   },
   "homepage": "https://github.com/yeliex/oh-markdown#readme",
   "dependencies": {
-    "@mdx-js/react": "^2.2.1"
+    "@mdx-js/react": "^3.1.1",
+    "@types/mdx": "^2.0.14",
+    "react-is": "^19.2.8"
   },
   "devDependencies": {
-    "oh-markdown": "^1.1.0"
+    "@types/react": "19.2.18",
+    "@types/react-is": "^19.2.0",
+    "oh-markdown": "workspace:^1.2.2"
   },
   "peerDependencies": {
-    "react": ">=17.0.0"
+    "@types/react": "^18.3.31 || ^19.0.0",
+    "oh-markdown": "workspace:^1.2.2",
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   }
 }

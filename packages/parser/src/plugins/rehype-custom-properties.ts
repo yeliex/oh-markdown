@@ -1,12 +1,11 @@
 import Slugger from 'github-slugger';
 import { Element, ElementContent, Node, Parent, Text } from 'hast';
 import { headingRank } from 'hast-util-heading-rank';
-import set from 'lodash.set';
+import set from 'lodash/set.js';
 import { toString } from 'mdast-util-to-string';
 import type { CSSProperties } from 'react';
 import { remove } from 'unist-util-remove';
-import { SKIP, visit } from 'unist-util-visit';
-import { VisitorResult } from 'unist-util-visit-parents/complex-types.js';
+import { SKIP, visit, type VisitorResult } from 'unist-util-visit';
 
 export const slugs = new Slugger();
 

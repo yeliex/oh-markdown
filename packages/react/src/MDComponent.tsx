@@ -1,17 +1,17 @@
 import type { Processor } from 'oh-markdown';
-import type { Components, MergeComponents } from '@mdx-js/react/lib';
 import { useMDXComponents } from '@mdx-js/react';
 import { useMemo, type ReactNode, createElement } from 'react';
+import { isValidElementType } from 'react-is';
 
 interface IProps {
     nodes: Array<
         ReturnType<Processor['toNodeSync']>['data'][0] |
         ReturnType<Processor['toHtmlSync']>['data'][0]
     >;
-    components?: Components | MergeComponents;
+    components?: Parameters<typeof useMDXComponents>[0];
 }
 
-const renderNode = (node: IProps['nodes'][0], components: Components, index: number, prefix?: string): ReactNode => {
+const renderNode = (node: IProps['nodes'][0], components: ReturnType<typeof useMDXComponents>, index: number, prefix?: string): ReactNode => {
     if (node.type === 'text') {
         return node.value;
     }
@@ -52,6 +52,10 @@ const renderNode = (node: IProps['nodes'][0], components: Components, index: num
 
     if (components[component] !== undefined) {
         component = components[component];
+    }
+
+    if (!isValidElementType(component)) {
+        throw new TypeError(`组件映射必须是有效的 React 组件：${node.type === 'component' ? node.name : node.tagName}`);
     }
 
     return createElement(component, {

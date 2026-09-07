@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Render Html Result should render 1`] = `"<script></script><h1 id="hello-world">Hello World</h1><h2 id="sub">sub</h2><ul><li>1</li><li>2</li></ul><script></script>"`;
 

@@ -1,4 +1,4 @@
-import { type Content, type Parent } from 'hast';
+import { type Content, type Parent, type Root } from 'hast';
 
 import mdxJsxFlowElement from './mdxJsxFlowElement.js';
 import mdxJsxTextElement from './mdxJsxTextElement.js';
@@ -10,12 +10,12 @@ const Handlers = {
     text,
 };
 
-const handler = (node: Content, index: number | null, parent: Parent) => {
+const handler = (node: Content | Root, index: number | undefined, parent: Parent | undefined) => {
     if (node.position) {
         delete node.position;
     }
 
-    if (node.type in Handlers) {
+    if (parent && index !== undefined && node.type in Handlers) {
         (Handlers[node.type as keyof typeof Handlers] as any)(node, index, parent);
     }
 };

@@ -2,15 +2,14 @@ import { type Parent } from 'hast';
 import { type MdxJsxFlowElement } from 'mdast-util-mdx';
 import mdxJsxAttributeHandler from './mdxJsxAttribute.js';
 import mdxJsxExpressionAttributeHandler from './mdxJsxExpressionAttribute.js';
-// @ts-ignore
-import { TAG_NAMES } from 'parse5/lib/common/html.js';
+import { html } from 'parse5';
 
 const AttributeHandlers = {
     mdxJsxAttribute: mdxJsxAttributeHandler,
     mdxJsxExpressionAttribute: mdxJsxExpressionAttributeHandler,
 };
 
-const HTMLTagNames = Object.values(TAG_NAMES);
+const HTMLTagNames = new Set<string>(Object.values(html.TAG_NAMES));
 
 export const attributeHandler = (attributes: MdxJsxFlowElement['attributes']): Record<string, any> => {
     return attributes.reduce((acc: any, attr: any) => {
@@ -22,7 +21,7 @@ export const attributeHandler = (attributes: MdxJsxFlowElement['attributes']): R
 };
 
 const mdxJsxFlowElementHandler = (node: MdxJsxFlowElement, index: number, parent: Parent) => {
-    if (HTMLTagNames.includes(node.name)) {
+    if (node.name && HTMLTagNames.has(node.name)) {
         parent.children[index] = {
             type: 'element',
             tagName: node.name!,
@@ -41,6 +40,7 @@ const mdxJsxFlowElementHandler = (node: MdxJsxFlowElement, index: number, parent
     } : {
         type: 'element',
         tagName: 'fragment',
+        properties: {},
         children: node.children as any,
     };
 };

@@ -3,7 +3,6 @@
   "compilerOptions": {
     "allowJs": false,
     "alwaysStrict": true,
-    "charset": "utf8",
     "declaration": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,7 +16,6 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "noImplicitUseStrict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "preserveConstEnums": true,
@@ -28,6 +26,7 @@
     "strict": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "target": "es2019"
+    "target": "es2019",
+    "types": ["node", "react"]
   }
 }

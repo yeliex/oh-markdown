@@ -6,22 +6,16 @@ import { Parser } from 'acorn';
 import acornJsx from 'acorn-jsx';
 import { Processor } from 'unified';
 
+declare module 'unified' {
+    interface Data {
+        toMarkdownExtensions?: Array<ReturnType<typeof mdxToMarkdown>>;
+    }
+}
+
 export default function remarkJSX(this: Processor) {
     const data = this.data();
 
-    /**
-     * @param {string} field
-     * @param {unknown} value
-     */
-    function add(field: string, value: unknown) {
-        const list = (
-            data[field] ? data[field] : (data[field] = [])
-        ) as unknown[];
-
-        list.push(value);
-    }
-
-    add('micromarkExtensions', combineExtensions([
+    (data.micromarkExtensions ??= []).push(combineExtensions([
         mdxJsx({
             acorn: Parser.extend(acornJsx()),
             acornOptions: {
@@ -30,9 +24,9 @@ export default function remarkJSX(this: Processor) {
             },
             addResult: true,
         }),
-        mdxMd,
+        mdxMd(),
     ]));
 
-    add('fromMarkdownExtensions', mdxFromMarkdown());
-    add('toMarkdownExtensions', mdxToMarkdown());
+    (data.fromMarkdownExtensions ??= []).push(mdxFromMarkdown());
+    (data.toMarkdownExtensions ??= []).push(mdxToMarkdown());
 }

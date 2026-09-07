@@ -16,6 +16,12 @@ export interface ComponentNode extends Omit<Component, 'children'> {
 
 export type HtmlNode = HtmlNodeItem | ComponentNode;
 
+declare module 'unified' {
+    interface CompileResultMap {
+        htmlNodes: HtmlNode[];
+    }
+}
+
 const treeToHtmlGroup = (tree: any[]) => {
     const group: any[] = [];
 
@@ -70,7 +76,7 @@ function rehypeCompileHtml(this: Processor) {
         return walkThroughNodes(tree.children);
     }
 
-    Object.assign(this, { Compiler: compiler });
+    this.compiler = compiler;
 }
 
 export default rehypeCompileHtml;
