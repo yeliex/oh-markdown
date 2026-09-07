@@ -5,8 +5,7 @@ import set from 'lodash.set';
 import { toString } from 'mdast-util-to-string';
 import type { CSSProperties } from 'react';
 import { remove } from 'unist-util-remove';
-import { SKIP, visit } from 'unist-util-visit';
-import { VisitorResult } from 'unist-util-visit-parents/complex-types.js';
+import { SKIP, visit, type VisitorResult } from 'unist-util-visit';
 
 export const slugs = new Slugger();
 

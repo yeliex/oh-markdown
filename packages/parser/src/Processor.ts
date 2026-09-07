@@ -202,7 +202,7 @@ export default class Processor {
         return processor;
     }
 
-    public parse(content: VFileCompatible) {
+    public parse(content: VFileCompatible): ReturnType<UnifiedProcessor['parse']> {
         return this.processor.parse(content);
     }
 

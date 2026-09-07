@@ -1,5 +1,4 @@
 import type { Processor } from 'oh-markdown';
-import type { Components, MergeComponents } from '@mdx-js/react/lib';
 import { useMDXComponents } from '@mdx-js/react';
 import { useMemo, type ReactNode, createElement } from 'react';
 
@@ -8,10 +7,10 @@ interface IProps {
         ReturnType<Processor['toNodeSync']>['data'][0] |
         ReturnType<Processor['toHtmlSync']>['data'][0]
     >;
-    components?: Components | MergeComponents;
+    components?: Parameters<typeof useMDXComponents>[0];
 }
 
-const renderNode = (node: IProps['nodes'][0], components: Components, index: number, prefix?: string): ReactNode => {
+const renderNode = (node: IProps['nodes'][0], components: ReturnType<typeof useMDXComponents>, index: number, prefix?: string): ReactNode => {
     if (node.type === 'text') {
         return node.value;
     }

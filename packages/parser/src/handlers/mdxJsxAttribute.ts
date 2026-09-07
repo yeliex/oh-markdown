@@ -2,7 +2,7 @@ import { type MdxJsxAttribute } from 'mdast-util-mdx';
 import * as AllowedStatements from '../statements/index.js';
 import { VFileMessage } from 'vfile-message';
 
-const mdxJsxAttributeHandler = (node: MdxJsxAttribute) => {
+const mdxJsxAttributeHandler = (node: MdxJsxAttribute): unknown => {
     if (typeof node.value === 'object' && node.value !== null && node.value.type === 'mdxJsxAttributeValueExpression') {
 
         // filer illegal characters

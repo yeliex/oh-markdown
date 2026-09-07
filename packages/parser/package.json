@@ -4,7 +4,7 @@
   "description": "Oh! Markdown~ parse and recompile markdown for render by js, support jsx, dom-tree or html",
   "main": "es/index.js",
   "type": "module",
-  "typings": "es/index.d.ts",
+  "types": "es/index.d.ts",
   "files": [
     "es",
     "src",
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "clean": "rm -rf es",
-    "build": "tsc -p tsconfig.json",
+    "build": "pkgroll --srcdist src:es --clean-dist --sourcemap",
     "test:type": "tsc --noEmit"
   },
   "repository": {
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/yeliex/oh-markdown#readme",
   "dependencies": {
     "@mdx-js/mdx": "^2.1.5",
+    "@types/hast": "^2.3.4",
     "acorn": "^8.8.2",
     "acorn-jsx": "^5.3.2",
     "estree-util-is-identifier-name": "^2.0.0",
@@ -35,12 +36,12 @@
     "github-slugger": "^2.0.0",
     "hast-util-heading-rank": "^2.0.0",
     "hast-util-to-html": "^8.0.4",
-    "lodash.set": "^4.3.2",
     "lodash.camelcase": "^4.3.0",
     "lodash.kebabcase": "^4.1.1",
+    "lodash.set": "^4.3.2",
     "mdast-util-mdx": "^2.0.0",
     "mdast-util-to-string": "^3.1.0",
-    "micromark-extension-mdx-jsx": "^1.0.3",
+    "micromark-extension-mdx-jsx": "^1.0.5",
     "micromark-extension-mdx-md": "^1.0.0",
     "micromark-util-combine-extensions": "^1.0.0",
     "parse5": "^6.0.0",
@@ -63,5 +64,9 @@
   },
   "peerDependencies": {
     "@mdx-js/react": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/estree": "^1.0.9",
+    "@types/react": "18.0.27"
   }
 }

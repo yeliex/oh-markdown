@@ -4,7 +4,7 @@
   "description": "Oh! Markdown~ react render",
   "main": "es/index.js",
   "type": "module",
-  "typings": "es/index.d.ts",
+  "types": "es/index.d.ts",
   "files": [
     "es",
     "src",
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "clean": "rm -rf es",
-    "build": "tsc -p tsconfig.json",
+    "build": "pkgroll --srcdist src:es --clean-dist --sourcemap",
     "test:type": "tsc --noEmit"
   },
   "repository": {
@@ -30,9 +30,11 @@
     "@mdx-js/react": "^2.2.1"
   },
   "devDependencies": {
-    "oh-markdown": "^1.1.0"
+    "@types/react": "18.0.27",
+    "oh-markdown": "workspace:^"
   },
   "peerDependencies": {
+    "oh-markdown": "workspace:^",
     "react": ">=17.0.0"
   }
 }
