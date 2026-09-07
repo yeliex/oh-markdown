@@ -1,10 +1,7 @@
 packages:
   - packages/*
 allowBuilds:
+  '@parcel/watcher': true
   '@swc/core': true
   esbuild: true
-packageExtensions:
-  # 该版本的声明引用 acorn，却只依赖旧版 @types/acorn；补齐实际使用的 Acorn 8。
-  micromark-util-events-to-acorn@1:
-    peerDependencies:
-      acorn: ^8.0.0
+  unrs-resolver: true

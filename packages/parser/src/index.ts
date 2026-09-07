@@ -13,7 +13,9 @@ declare module 'hast' {
     interface ElementContentMap {
         component: Component;
     }
+    interface RootContentMap {
+        component: Component;
+    }
 }
 
 /* eslint-enable @typescript-eslint/consistent-type-definitions */
-

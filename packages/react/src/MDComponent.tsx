@@ -1,6 +1,7 @@
 import type { Processor } from 'oh-markdown';
 import { useMDXComponents } from '@mdx-js/react';
 import { useMemo, type ReactNode, createElement } from 'react';
+import { isValidElementType } from 'react-is';
 
 interface IProps {
     nodes: Array<
@@ -51,6 +52,10 @@ const renderNode = (node: IProps['nodes'][0], components: ReturnType<typeof useM
 
     if (components[component] !== undefined) {
         component = components[component];
+    }
+
+    if (!isValidElementType(component)) {
+        throw new TypeError(`组件映射必须是有效的 React 组件：${node.type === 'component' ? node.name : node.tagName}`);
     }
 
     return createElement(component, {

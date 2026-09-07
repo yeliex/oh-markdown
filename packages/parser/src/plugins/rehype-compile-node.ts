@@ -17,7 +17,7 @@ function rehypeCompileNode(this: Processor) {
         return tree;
     }
 
-    Object.assign(this, { Compiler: compiler });
+    this.compiler = compiler;
 }
 
 export default rehypeCompileNode;
