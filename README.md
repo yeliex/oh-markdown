@@ -25,5 +25,5 @@ pnpm test
 
 新版解析器使用 MDX 3、unified 11，运行环境要求 Node.js 20.19 或更高版本。
 使用 MDX provider 时需安装 `@mdx-js/react` 3；`@oh-markdown/react` 的类型声明引用 `oh-markdown`，两者需要配套升级。
-使用 React 17/18 的 TypeScript 项目需将 `@types/react` 分别更新至 17.0.93/18.3.31 或更高补丁版本；React 19 的类型已适配。
+React 渲染包要求 React 18 或更高版本；React 17 的 JSX runtime 无法通过原生 ESM 入口解析。React 18 的 TypeScript 项目需使用 `@types/react` 18.3.31 或更高补丁版本；React 19 的类型已适配。
 正文中的 import/export 和 JavaScript 表达式继续作为文本处理，组件属性继续使用已有的受限解析规则。
