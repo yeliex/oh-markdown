@@ -41,6 +41,7 @@ const mdxJsxFlowElementHandler = (node: MdxJsxFlowElement, index: number, parent
     } : {
         type: 'element',
         tagName: 'fragment',
+        properties: {},
         children: node.children as any,
     };
 };
