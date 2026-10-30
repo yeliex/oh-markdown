@@ -1,5 +1,11 @@
 # oh-markdown
 
+## 1.2.3
+
+### Patch Changes
+
+- 修复中文、日文和韩文中紧邻标点、括号及引号的加粗和斜体解析，统一覆盖 AST、节点、HTML 和 JSX 输出。保留 unified 10、MDX 2 和现有调用方式，支持 Node.js 18。
+
 ## 1.2.2
 
 ### Patch Changes

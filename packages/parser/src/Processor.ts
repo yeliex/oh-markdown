@@ -15,6 +15,7 @@ import { optionsToString } from './utils.js';
 import { type VFileCompatible } from 'vfile';
 import { SourceMapGenerator } from 'source-map';
 import remarkGfm from 'remark-gfm';
+import remarkCjkFriendly from './plugins/remark-cjk-friendly.js';
 import rehypeToc from './plugins/rehype-toc.js';
 import { rehypeRecma } from '@mdx-js/mdx/lib/plugin/rehype-recma.js';
 import { recmaDocument } from '@mdx-js/mdx/lib/plugin/recma-document.js';
@@ -105,6 +106,8 @@ export default class Processor {
         processor.use(remarkParse);
 
         processor.use(remarkBreaks);
+
+        processor.use(remarkCjkFriendly);
 
         processor.use(remarkGfm);
 
