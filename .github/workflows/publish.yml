@@ -1,0 +1,67 @@
+name: 验证与发布 oh-markdown
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    tags: ['oh-markdown@*']
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node 18 验证与打包
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.19.0'
+      - name: 启用 Yarn
+        run: corepack enable
+      - name: 安装依赖
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: 构建、类型检查与单元测试
+        run: yarn test --output-logs=errors-only
+      - name: 校验发布标签
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          node --input-type=commonjs -e '
+            const pkg = require("./packages/parser/package.json");
+            if (process.env.GITHUB_REF_NAME !== `${pkg.name}@${pkg.version}`) {
+              throw new Error("发布标签与包版本不一致");
+            }
+          '
+      - name: 打包已验证的产物
+        run: |
+          mkdir -p "$RUNNER_TEMP/npm-package"
+          npm pack --workspace=oh-markdown --pack-destination "$RUNNER_TEMP/npm-package"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-package
+          path: ${{ runner.temp }}/npm-package/*.tgz
+          if-no-files-found: error
+
+  publish:
+    name: npm 可信发布
+    if: startsWith(github.ref, 'refs/tags/oh-markdown@')
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      # 新版 npm 的 OIDC 发布需要 Node 22.14+，构建和兼容性验证仍在 Node 18 完成。
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v4
+        with:
+          name: npm-package
+          path: ${{ runner.temp }}/npm-package
+      - name: 发布已验证的包
+        run: npm publish "$RUNNER_TEMP"/npm-package/*.tgz --access public --provenance --registry=https://registry.npmjs.org
