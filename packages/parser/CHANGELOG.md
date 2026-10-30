@@ -1,10 +1,10 @@
 # oh-markdown
 
-## 1.2.4
+## 1.3.0
 
-### Patch Changes
+### Minor Changes
 
-- 使用官方 remark-cjk-friendly 插件处理中文、日文和韩文强调，替换本地分词实现；同步升级所需的 Markdown 解析依赖，保留 Node 18 兼容性。
+- 使用官方 remark-cjk-friendly 插件处理中文、日文和韩文强调，替换本地分词实现；升级所需的 unified、remark、micromark 和 MDX 解析依赖，保持 Node 18 兼容性。
 
 ## 1.2.3
 
